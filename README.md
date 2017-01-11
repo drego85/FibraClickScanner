@@ -12,7 +12,7 @@ Vengono analizzati i dati forniti dal portale [FibraClick](https://fibra.click/)
 
 Recarsi sul sito [FibraClick](https://fibra.click/) e prelevare il nome della propria Centrale (CLLI) e il numero del proprio ONU (attenzione omettere eventuale testo/cifre prima del trattino basso "_" e indicare se previsto lo zero prima del numero della centrale).
 
-Esempio: Per il comune di Roma, Centrale Aurelia, Centrale 001 i dati di nostro interesse sono:
+Esempio: Per il comune di Roma, Centrale Aurelia, Cabinet 001 i dati di nostro interesse sono:
  * ROMAITEH
  * 001
 
@@ -26,9 +26,9 @@ Sfruttando i dati prelevati in precedenza il file config.txt dovrà essere così
 
 [pushover]
 
-api_token = Visitare [PushOver](https://pushover.net/) per ottenere la propria chiave.
+api_token = Visitare [PushOver](https://pushover.net/) per ottenere la chiave della propria Applicazione
 
-user_key = Visitare [PushOver](https://pushover.net/) per ottenere la propria chiave.
+user_key = Visitare [PushOver](https://pushover.net/) per ottenere la chiave del proprio Dispositivo
 
 [fibraclick]
 
