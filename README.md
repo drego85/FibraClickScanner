@@ -47,7 +47,7 @@ Per una corretta esecuzione del codice è necessario installare le seguenti libr
 
 #### Screenshot Notifica
 
-![Screenshot Notifica Notifica](https://i.imgur.com/WzkOPx6.png)
+![Screenshot Notifica Notifica](https://www.andreadraghetti.it/wp-content/uploads/2017/01/IMG_1407-640x430.png)
 
 #### License
 
