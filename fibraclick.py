@@ -1,4 +1,4 @@
-#!/usr/python
+#!/usr/bin/python2
 # This file is part of FibraClick Scanner.
 #
 # Copyright(c) 2017 Andrea Draghetti
@@ -36,8 +36,8 @@ if os.path.exists("config.txt") is True:
     config = ConfigParser()
     config.read("config.txt")
     sede_clli = config.get("fibraclick", "sede_clli")
-    onu_id = config.get("fibraclick", "onu_id")
-    status = config.get("fibraclick", "status")
+    onu_ids = config.get("fibraclick", "onu_ids").split(',')  
+    status = config.get("fibraclick", "status").split('|')
     api_token = config.get("pushover", "api_token")
     user_key = config.get("pushover", "user_key")
 else:
@@ -56,37 +56,52 @@ url = "https://fibra.click/api/data/copertura/armadi/?sede=%s" % sede_clli
 page = requests.get(url, headers=header, timeout=timeoutconnection)
 data = json.loads(page.text)
 
-if sede_clli and onu_id:
-    for each in data["data"]:
-        if each["onu_id"] == onu_id:
+onu_status = []
+n = len(status)
+for i, onu_id in enumerate(onu_ids):
+    if i < n:
+        onu_status.append({'onu_id': onu_id, 'status': status[i]})
 
-            currentstatus = str(each["attivazione"])
+    else:
+        onu_status.append({'onu_id': onu_id, 'status': ''})
 
-            if currentstatus != status:
+if sede_clli and onu_ids:
+    for onu in onu_status:
+        for each in data["data"]:
+            if each["onu_id"] == onu['onu_id']:
+                currentstatus = str(each["attivazione"])
+                if currentstatus != onu['status']:
 
-                print "Variato lo stato dell'ONU: " + onu_id + " in: " + currentstatus
+                    print "Variato lo stato dell'ONU: " + onu['onu_id'] + " in: " + currentstatus
 
-                # Invio la notifica Push
-                if api_token:
-                    Client(user_key).send_message(
-                        "Variato lo stato dell'ONU: " + onu_id + " in: " + currentstatus,
-                        title="FibraClick Scanner", url="https://fibra.click",
-                        url_title="Tutti i dettagli su FibraClick")
+                    # Invio la notifica Push
+                    if api_token:
+                        Client(user_key).send_message(
+                            "Variato lo stato dell'ONU: " + onu['onu_id'] + " in: " + currentstatus,
+                            title="FibraClick Scanner", url="https://fibra.click",
+                            url_title="Tutti i dettagli su FibraClick")
 
-                # Aggiorno il file di configurazione con il nuovo valore ottenuto
-                cfgfile = open("config.txt", "w")
-                config.set("fibraclick", "status", currentstatus)
-                config.write(cfgfile)
-                cfgfile.close()
+                    onu['status'] = currentstatus
 
-            else:
-                print "Nessuna variazione dell'ONU: " + onu_id + ", " + currentstatus
 
-            notfound = False
-            break
+                else:
+                    print "Nessuna variazione dell'ONU: " + onu['onu_id'] + ", " + currentstatus
 
-    if notfound:
-        print "ONU: " + onu_id + " e Sede Clli: " + sede_clli + " non attualmente pianificati o errore nell'inserimento dei dati."
+                notfound = False
+                break
+
+        if notfound:
+            print "ONU: " + onu['onu_id'] + " e Sede Clli: " + sede_clli + " non attualmente pianificati o errore nell'inserimento dei dati."
+
+    # Aggiorno il file di configurazione con il nuovo valore ottenuto
+    new_status = ''
+    for onu in onu_status:
+        new_status += onu['status'] + "|"
+
+    cfgfile = open("config.txt", "w")
+    config.set("fibraclick", "status", new_status)
+    config.write(cfgfile)
+    cfgfile.close()
 
 else:
     print "ONU e Sede Clli non specificati, editare i parametri del file config.sample.txt e rinominarlo in config.txt!"
