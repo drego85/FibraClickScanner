@@ -10,7 +10,7 @@ Vengono analizzati i dati forniti dal portale [FibraClick](https://fibra.click/)
 
 #### Utilizzo
 
-Recarsi sul sito [FibraClick](https://fibra.click/) e prelevare il nome della propria Centrale (CLLI) e il numero del proprio ONU (attenzione omettere eventuale testo/cifre prima del trattino basso "_" e indicare se previsto lo zero prima del numero della centrale).
+Recarsi sul sito [FibraClick](https://fibra.click/) e prelevare il nome della propria Centrale (CLLI) e il numero del proprio ONU (attenzione omettere eventuale testo/cifre prima del trattino basso "_" e indicare se previsto lo zero prima del numero della centrale) o la lista dei numeri onu da monitorare.
 
 Esempio: Per il comune di Roma, Centrale Aurelia, Cabinet 001 i dati di nostro interesse sono:
  * ROMAITEH
@@ -34,7 +34,7 @@ user_key = Visitare [PushOver](https://pushover.net/) per ottenere la chiave del
 
 sede_clli = ROMAITEH
 
-onu_id = 001
+onu_ids = 001,002,003
 
 status = 
 
