@@ -1,16 +1,23 @@
 # FibraClick Scanner
 
 
-Questo software nasce con l'idea di ricevere in maniera totalmente automatica una notifica Push sul proprio Smartphone non appena il cabinet della Fibra (VDSL) TIM venga attivato.
+Questo software nasce con l'idea di ricevere in maniera totalmente automatica una notifica Push sul proprio Smartphone non appena il cabinet della Fibra (VDSL) TIM viene attivato.
 
-Una seconda revisione dello scanner integra invece la notifica di una qualsiasi varazione dello statto del cabinet indicato.
+Una seconda revisione dello scanner integra invece la notifica di una qualsiasi varazione dello statto del cabinet o del comune indicato.
 
-Vengono analizzati i dati forniti dal portale [FibraClick](https://fibra.click/) e qualora il cabinet indicato risultasse variato (Attivato, Cambio Pianificazione, Saturo, ecc) rispetto alla precedente analisi viene inviata una notifica Push allo Smartphone o Tablet attraverso i servizi offerti da [PushOver](https://pushover.net/).
+Vengono analizzati i dati forniti dal portale [FibraClick](https://fibra.click/) e qualora risultasse una variazione (Attivato, Cambio Pianificazione, Saturo, ecc) rispetto alla precedente analisi viene inviata una notifica Push allo Smartphone o Tablet attraverso i servizi offerti da [PushOver](https://pushover.net/).
 
 
 #### Utilizzo
 
-Recarsi sul sito [FibraClick](https://fibra.click/) e prelevare il nome della propria Centrale (CLLI) e il numero del proprio ONU (attenzione omettere eventuale testo/cifre prima del trattino basso "_" e indicare se previsto lo zero prima del numero della centrale) o la lista dei numeri onu da monitorare.
+Lo scanner permette di monitorare l'attivazione generica di un comune o più specificatamente l'attivazione del proprio ONU (Armadio).
+
+Nel primo caso si riceverà una notifica quall'ora il comune venga pianificato per l'attivazione della Fibra TIM e gli eventuali aggiornamenti di pianificazione.
+Nel secondo caso si riceverà una notifica quando lo stato del proprio ONU cambia (pianificato, attivo, saturo, ecc)
+
+Se il proprio comune non è attualmente pianificato potete valorizzare esclusivamente la variabile "comune" nel file di configurazione, nel momento in cui il comune verrà pianificato per l'attivazione della Fibra riceverete una notifica.
+
+Se il tuo comune è invece già pianificato o attivo recati sul sito [FibraClick](https://fibra.click/) e prelevare il nome della propria Centrale (CLLI) e il numero del proprio ONU (attenzione omettere eventuale testo/cifre prima del trattino basso "_" e indicare se previsto lo zero prima del numero della centrale) o la lista dei numeri onu da monitorare.
 
 Esempio: Per il comune di Roma, Centrale Aurelia, Cabinet 001 i dati di nostro interesse sono:
  * ROMAITEH
@@ -32,11 +39,12 @@ user_key = Visitare [PushOver](https://pushover.net/) per ottenere la chiave del
 
 [fibraclick]
 
+comune = 
+
 sede_clli = ROMAITEH
 
 onu_ids = 001,002,003
 
-status = 
 
 #### Librerie Python 
 

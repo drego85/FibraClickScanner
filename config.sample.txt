@@ -1,10 +1,14 @@
-# Valorizzare i parametri seguenti con i valori desiderati (non valorizzare il campo status)
+# Valorizzare i parametri seguenti con i valori desiderati (non valorizzare i campi status)
 
 [pushover]
 api_token = 
 user_key = 
 
 [fibraclick]
+comune =
 sede_clli =
 onu_ids = 
-status = 
+
+[stati]
+statusonus = 
+statuscomune =
